@@ -1,0 +1,303 @@
+@import "tailwindcss";
+
+/* ===== THEME VARIABLES ===== */
+:root {
+  --neon-green: #39ff14;
+  --neon-green-dim: #39ff1440;
+  --cyber-blue: #00d4ff;
+  --cyber-blue-dim: #00d4ff30;
+  --cyber-purple: #b44aff;
+  --accent-red: #ff3e3e;
+  --dark-bg: #0a0a0f;
+  --dark-surface: #12121a;
+  --dark-card: #1a1a2e;
+  --dark-border: #2a2a3e;
+  --dark-text: #e0e0e0;
+  --dark-text-muted: #8888aa;
+  --light-bg: #f0f2f5;
+  --light-surface: #ffffff;
+  --light-card: #ffffff;
+  --light-border: #e0e0e0;
+  --light-text: #1a1a2e;
+  --light-text-muted: #666688;
+  --radius: 16px;
+  --radius-sm: 8px;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ===== BASE ===== */
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: y proximity;
+}
+
+body {
+  font-family: "Inter", system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Dark mode (default) */
+.dark body {
+  background: var(--dark-bg);
+  color: var(--dark-text);
+}
+
+.dark {
+  --bg: var(--dark-bg);
+  --surface: var(--dark-surface);
+  --card: var(--dark-card);
+  --border: var(--dark-border);
+  --text: var(--dark-text);
+  --text-muted: var(--dark-text-muted);
+}
+
+/* Light mode */
+.light body {
+  background: var(--light-bg);
+  color: var(--light-text);
+}
+
+.light {
+  --bg: var(--light-bg);
+  --surface: var(--light-surface);
+  --card: var(--light-card);
+  --border: var(--light-border);
+  --text: var(--light-text);
+  --text-muted: var(--light-text-muted);
+  --glass-bg: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(0, 0, 0, 0.1);
+}
+
+/* ===== SCROLLBAR ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neon-green-dim);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--neon-green);
+}
+
+/* ===== GLASSMORPHISM ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+}
+
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  border-color: var(--neon-green-dim);
+  box-shadow: 0 0 30px var(--neon-green-dim);
+  transform: translateY(-4px);
+}
+
+/* ===== NEON GLOW ===== */
+.neon-text {
+  color: var(--neon-green);
+  text-shadow: 0 0 10px var(--neon-green-dim), 0 0 40px var(--neon-green-dim);
+}
+
+.neon-border {
+  border-color: var(--neon-green);
+  box-shadow: 0 0 15px var(--neon-green-dim), inset 0 0 15px var(--neon-green-dim);
+}
+
+/* ===== ANIMATED BACKGROUND ===== */
+.cyber-grid {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.03;
+  background-image:
+    linear-gradient(var(--neon-green) 1px, transparent 1px),
+    linear-gradient(90deg, var(--neon-green) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+.light .cyber-grid {
+  opacity: 0.02;
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.1) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.1) 1px, transparent 1px);
+}
+
+/* ===== FLOATING PARTICLES ===== */
+@keyframes float-particle {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    transform: translateY(-100vh) translateX(20px);
+    opacity: 0;
+  }
+}
+
+.particle {
+  position: fixed;
+  width: 2px;
+  height: 2px;
+  background: var(--neon-green);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: float-particle linear infinite;
+}
+
+/* ===== SECTION STYLES (PPT SCROLL SNAP) ===== */
+section {
+  position: relative;
+  z-index: 1;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* GitHub stats & blog can be shorter */
+#github-stats,
+#blog {
+  min-height: auto;
+}
+
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+  width: 100%;
+}
+
+/* ===== TYPING CURSOR ===== */
+.typing-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.1em;
+  background: var(--neon-green);
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+  vertical-align: text-bottom;
+}
+
+@keyframes blink {
+  50% {
+    opacity: 0;
+  }
+}
+
+/* ===== SCAN LINE EFFECT ===== */
+@keyframes scanLine {
+  0% {
+    transform: translateY(-100%);
+  }
+
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+.scan-line {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--neon-green), transparent);
+  animation: scanLine 3s linear infinite;
+  opacity: 0.5;
+}
+
+/* ===== PULSE RING ===== */
+@keyframes pulse-ring {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+/* ===== STATUS DOT ===== */
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--neon-green);
+  animation: pulse-ring 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ===== GRADIENT TEXT ===== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--neon-green), var(--cyber-blue));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== SMOOTH SECTION REVEAL ===== */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 768px) {
+  html {
+    scroll-snap-type: y proximity;
+  }
+
+  section {
+    min-height: auto;
+    scroll-snap-align: start;
+  }
+
+  .section-container {
+    padding: 0 1rem;
+  }
+}
